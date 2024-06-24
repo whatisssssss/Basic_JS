@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" integrity="sha512-EZI2cBcGPnmR89wTgVnN3602Yyi7muWo8y1B3a8WmIv1J9tYG+udH4LvmYjLiGp37yHB7FfaPBo8ly178m9g4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="word"><b>SHRISTI</b></div>
+    <script>
+      var word=document.querySelector("#word")
+      word.addEventListener('mousemove',(val)=>{
+        var position=word.getBoundingClientRect()
+       // console.log(position)
+        //val.clientX-> position of the cursor
+        var inside=val.clientX-position.left;
+        if(inside<position.width/2){
+          var red=gsap.utils.mapRange(position.left,position.width/2,255,0,inside)
+          gsap.to(word,{
+            color:`rgb(${red},0,0)`,
+            ease:Power4
+          })
+        }
+        else{
+          var green=gsap.utils.mapRange(position.width/2,position.width,0,255,inside)
+          gsap.from(word,{
+            color:`rgb(0,${green},0)`,
+            ease:Power4
+          })
+        }
+      })
+      word.addEventListener("mouseleave",()=>{
+        gsap.to(word,{
+        color:"white"
+        })
+      })
+      
+     
+    </script>
+</body>
+</html>
